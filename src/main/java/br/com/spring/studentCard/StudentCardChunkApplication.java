@@ -17,12 +17,10 @@ import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
 import org.springframework.batch.item.file.transform.Range;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
 
 import br.com.spring.studentCard.models.Student;
 
@@ -58,7 +56,6 @@ public class StudentCardChunkApplication {
 			if(!student.getName().contains("--") && 
 				student.getName().length() > 0)
 			{
-				logger.info("Inserindo...");
 				student.setName(student.getName());
 				student.setAccountNumber(student.getAccountNumber());
 				student.setCardNumber(student.getCardNumber());
