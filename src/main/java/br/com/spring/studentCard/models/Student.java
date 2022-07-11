@@ -1,10 +1,17 @@
 package br.com.spring.studentCard.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Student {
@@ -22,6 +29,10 @@ public class Student {
     @Column(nullable = false)
     private String accountNumber;
 
+    @OneToMany(mappedBy = "studentTransaction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Transaction> transactions;
+
 
     public String getName() {
         return this.name;
@@ -37,7 +48,7 @@ public class Student {
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
-    }
+    }  
 
     public String getAccountNumber() {
         return this.accountNumber;
@@ -55,4 +66,14 @@ public class Student {
         this.id = id;
     }
 
+    public List<Transaction> getTransactions() {
+        return this.transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public Student() {
+    }
 }

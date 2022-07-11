@@ -36,11 +36,10 @@ public class StudentCardChunkApplication {
 	}
 
 	@Bean
-	// public ItemReader<Student> itemReader(@Value("${file.path}") Resource resource){
 	public ItemReader<Student> itemReader(){
 		return new FlatFileItemReaderBuilder<Student>()
 			.name("crypto file reader")
-			.resource(new FileSystemResource("C:/git/spring/trabalhoFinal/studentcard/src/main/resources/lista_alunos.txt"))
+			.resource(new FileSystemResource("C:/git/spring/trabalhoFinal/fiap-spring/src/main/resources/lista_alunos.txt"))
 			.lineTokenizer(new FixedLengthTokenizer()  {{
 				setNames("name", "card_Number", "account_number");
 				setColumns(new Range(1,41), new Range(42,49), new Range(50,55));
@@ -71,7 +70,7 @@ public class StudentCardChunkApplication {
 	@Bean
 	public ItemWriter<Student> itemWriter(DataSource dataSource) {
 		return new JdbcBatchItemWriterBuilder<Student>()
-			.sql("insert into STUDENT(name, card_Number, account_number) values(:name, :cardNumber, :accountNumber)")
+			.sql("insert into STUDENT(name, card_number, account_number) values(:name, :cardNumber, :accountNumber)")
 			.dataSource(dataSource)
 			.beanMapped()
 			.build();

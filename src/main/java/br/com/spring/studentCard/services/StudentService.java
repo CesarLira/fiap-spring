@@ -1,27 +1,45 @@
-// package br.com.spring.studentCard.services;
+package br.com.spring.studentCard.services;
 
-// import org.springframework.beans.BeanUtils;
-// import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
-// import br.com.spring.studentCard.dto.StudentDto;
-// import br.com.spring.studentCard.models.Student;
-// import br.com.spring.studentCard.repositories.StudentRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
-// @Service
-// public class StudentService {
+import br.com.spring.studentCard.dto.StudentDto;
+import br.com.spring.studentCard.models.Student;
+import br.com.spring.studentCard.repositories.StudentRepository;
 
-//     final StudentRepository studentRepository;
+@Service
+public class StudentService {
 
-//     public StudentService(StudentRepository studentRepository) {
-//         this.studentRepository = studentRepository;
-//     }
+    final StudentRepository studentRepository;
 
-//     public Student save(StudentDto studentDto)
-//     {
-//         var student = new Student();
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
 
-//         BeanUtils.copyProperties(studentDto, student);
-//         return studentRepository.save(student);
-//     }
+    public Student save(StudentDto studentDto)
+    {
+        var student = new Student();
+
+        BeanUtils.copyProperties(studentDto, student);
+        return studentRepository.save(student);
+    }
+
+    public List<Student> findAll()
+    {
+        return studentRepository.findAll();
+    }
+
+    public Optional<Student> findById(long id)
+    {
+        return studentRepository.findById(id);
+    }
+
+    public void deleleById(long id)
+    {
+        studentRepository.deleteById(id);
+    }
     
-// }
+}
